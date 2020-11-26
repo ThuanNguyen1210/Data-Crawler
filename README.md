@@ -27,7 +27,8 @@ Cài đặt
   + pip install bs4
   
 TODO
-- Triển khai việc: Crawl dữ liệu, xây dựng Bộ dataset (~ 10.000.), cải tiến công cụ (source code đã xây dựng) để tạo thành công cụ hoàn chỉnh cho việc Crawl dữ liệu. 
+- Triển khai việc: Crawl dữ liệu, xây dựng Bộ dataset (~ 10.000.)
+- Cải tiến công cụ (source code đã xây dựng) để tạo thành công cụ hoàn chỉnh cho việc Crawl dữ liệu (sử dụng cho web không public API, yêu cầu đăng nhập, dùng js load động, ...) 
 - Tìm hiểu cách làm sạch, chuẩn hóa dữ liệu, phân loại dữ liệu. 
 - Thiết kế CLDS, các định dạng file biểu diễn dataset. 
 - Kết quả dự kiến: dataset, bản thiết kế CSDL, báo cáo tìm hiểu về cách làm sạch, source code nếu có.
