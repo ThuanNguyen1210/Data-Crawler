@@ -11,10 +11,13 @@ class JobSpider(scrapy.Spider):
         for link in links:
             link = 'https://mywork.com.vn' + link
             yield scrapy.Request(url=link, callback=self.parse_job_info)
+
         next_page = response.css(
             'ul.pagination li.page-item')[-1].css('a::attr("href")').get()
         if next_page is not None:
             yield response.follow(url=next_page, callback=self.parse)
+
+            
     def parse_job_info(self, response):
         yield {
             'job_title': str(response.css('h1.main-title span::text').get()).strip(),
