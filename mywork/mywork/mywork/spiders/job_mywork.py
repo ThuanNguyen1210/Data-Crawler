@@ -26,4 +26,16 @@ class JobSpider(scrapy.Spider):
             'degree_requirement': str(response.css('div.box_main_info_job_left  div.row')[3].css('div.col-md-6')[1].css('span::text')[1].get()).strip(),
             'quantity': str(response.css('div.box_main_info_job_left  div.row')[4].css('div.col-md-6')[0].css('span::text')[1].get()).strip(),
             'gender_requirement': str(response.css('div.box_main_info_job_left  div.row')[4].css('div.col-md-6')[1].css('span::text')[1].get()).strip(),
+            'job_description': response.css('div.mw-box-item')[0].css('::text').getall(),
+            'benefit': response.css('div.mw-box-item')[1].css('::text').getall(),
+            'job_requirement': response.css('div.mw-box-item')[2].css('::text').getall(),
+            'profile_requirment': response.css('div.mw-box-item')[3].css('::text').getall(),
+            'contact_infor': [response.css('div.mw-box-item.box-contact').css('div.row')[0].css('div.col-md-6.col-lg-3.label-contact').css('strong::text').get() + " " +
+                              response.css('div.mw-box-item.box-contact').css('div.row')[0].css('div.col-md-6.col-lg-9.item').css('span::text').get()] +
+                            [response.css('div.mw-box-item.box-contact').css('div.row')[1].css('div.col-md-6.col-lg-3.label-contact').css('strong::text').get() + " " +
+                            response.css('div.mw-box-item.box-contact').css('div.row')[1].css('div.col-md-6.col-lg-9.item').css('span::text').get()] +
+                            [response.css('div.mw-box-item.box-contact').css('div.row')[2].css('div.col-md-6.col-lg-3.label-contact').css('strong::text').get() + " " +
+                            response.css('div.mw-box-item.box-contact').css('div.row')[2].css('div.col-md-6.col-lg-9.item').css('span::text').get()] +
+                            [response.css('div.mw-box-item.box-contact').css('div.row')[3].css('div.col-md-6.col-lg-3.label-contact').css('strong::text').get() + " " +
+                            str(response.css('div.mw-box-item.box-contact').css('div.row')[3].css('div.col-md-6.col-lg-9.item::text').get()).strip()]
         }
