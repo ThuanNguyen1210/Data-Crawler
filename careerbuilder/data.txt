@@ -1,1 +1,0 @@
-{"info_company": [{"Tên công ty": "First Alliances"}, {"Tên công ty": "Công Ty Cổ Phần Sách Alpha"}, {"Tên công ty": "Công Ty CP Việt Tinh Anh"}, {"Tên công ty": "Công ty TNHH SAPPORO Vietnam"}, {"Tên công ty": "Công Ty TNHH Dự Án Hồ Tràm"}]}
