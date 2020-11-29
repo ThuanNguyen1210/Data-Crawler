@@ -17,7 +17,6 @@ class JobSpider(scrapy.Spider):
         if next_page is not None:
             yield response.follow(url=next_page, callback=self.parse)
 
-            
     def parse_job_info(self, response):
         yield {
             'job_title': str(response.css('h1.main-title span::text').get()).strip(),
@@ -37,7 +36,7 @@ class JobSpider(scrapy.Spider):
             'job_requirement': response.css('div.mw-box-item')[2].css('::text').getall(),
             'profile_requirment': response.css('div.mw-box-item')[3].css('::text').getall(),
             'contact_infor': [response.css('div.mw-box-item.box-contact').css('div.row')[0].css('div.col-md-6.col-lg-3.label-contact').css('strong::text').get() + " " +
-                              response.css('div.mw-box-item.box-contact').css('div.row')[0].css('div.col-md-6.col-lg-9.item').css('span::text').get()] +
+                            response.css('div.mw-box-item.box-contact').css('div.row')[0].css('div.col-md-6.col-lg-9.item').css('span::text').get()] +
                             [response.css('div.mw-box-item.box-contact').css('div.row')[1].css('div.col-md-6.col-lg-3.label-contact').css('strong::text').get() + " " +
                             response.css('div.mw-box-item.box-contact').css('div.row')[1].css('div.col-md-6.col-lg-9.item').css('span::text').get()] +
                             [response.css('div.mw-box-item.box-contact').css('div.row')[2].css('div.col-md-6.col-lg-3.label-contact').css('strong::text').get() + " " +
