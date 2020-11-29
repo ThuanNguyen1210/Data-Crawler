@@ -10,5 +10,7 @@
 # Step 4: Creating a project
     scrapy startproject mywork
 
-# Step5: How to run our spider
+# Step 5: How to run our spider
     scrapy crawl mywork -O job_detail.json
+
+# Result crawl data in file job_detail.json
