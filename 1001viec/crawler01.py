@@ -8,7 +8,7 @@ def trade_spider(max_page):
     jobs_array = {}
     jobs = []
     while page <= max_page :
-        url = "https://1001vieclam.com/search-results-jobs/?searchId=1606497144.676&action=search&"+str(page)+"&view=list"
+        url = "https://1001vieclam.com/search-results-jobs/?searchId=1606639087.9815&action=search&page="+str(page)+"&view=list"
         source = requests.get(url)
         soup = BeautifulSoup(source.text, "html.parser")
         for links in soup.findAll('div', {'class' : 'listing-title'}):
@@ -118,4 +118,4 @@ def process(data):
     begin = data.find("href=\"")
     end = data.rfind("\">")
     return data[begin+len("href=\""):end]
-trade_spider(50)
+trade_spider(110)
