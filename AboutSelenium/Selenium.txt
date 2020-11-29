@@ -1,0 +1,18 @@
+- Selenium is an umbrella project for a range of tools and libraries that 
+enable and support the automation of web browsers.
+
+- It provides extensions to emulate user interaction with browsers,
+a distribution server for scaling browser allocation, and the infrastructure for 
+implementations of the W3C WebDriver specification that lets you write interchangeable 
+code for all major web browsers.
+
+- From there, we use Selenium to crawl data from web even though it's mostly an automated
+web testing tool, not much about scraping data.
+
+- Selenium Installation:
+    + First, your computer needs to have Python (we're using Python 3) and Pip
+    (if not, please visit https://realpython.com/installing-python/ to install Python
+    and https://www.liquidweb.com/kb/install-pip-windows/ to install Pip)
+    + Then in the command window (or Terminal) type:
+        pip install selenium
+    to install Selenium
