@@ -16,3 +16,8 @@ web testing tool, not much about scraping data.
     + Then in the command window (or Terminal) type:
         pip install selenium
     to install Selenium
+    + Another thing to do is to download the webdriver (here we use the browser Google Chrome)
+    (You can download the Google Chrome webdriver that compatible with your computer OS from here
+    https://chromedriver.chromium.org/downloads)
+    Then please extract the downloaded file and copy the chromedriver.exe file as same as this
+    path: C:\\Webdriver\\chromedriver.exe
