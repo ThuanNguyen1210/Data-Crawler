@@ -72,6 +72,41 @@ Các tệp JSON không hỗ trợ mô tả hoặc chỉ số cột.
 
 4. Công cụ chia sẻ dữ liệu - JSON là công cụ tốt nhất để chia sẻ dữ liệu ở bất kỳ kích thước nào kể cả âm thanh, video, v.v. Điều này là do JSON lưu trữ dữ liệu trong các mảng nên việc truyền dữ liệu dễ dàng hơn. Vì lý do này, JSON là một định dạng tệp cao cấp cho các API web và để phát triển web.
 
+# Dataset
+    Dataset của nhóm có định dạng file JSON gồm các field:
+    job_title, company, salary, location, position, job_description, job_requirement, benefit, quantity
 
-
+    [
+    {
+       "job_title":"Team Leader - Trưởng Nhóm Kinh Doanh Lương Cứng 12 Triệu + % Doanh Số",
+       "company":"Công Ty Tài chính Mcredit Tại Hà Nội",
+       "salary":"10 triệu - 12 triệu",
+       "location":"Hà Nội",
+       "position":"Trưởng nhóm",
+       "job_description":[
+          "- Lập và giám sát kế hoạch kinh doanh nhóm 5 - 10 hoặc 20 nhân viên chính thức",
+          "- Báo cáo hàng ngày về doanh số, cũng như kiến nghị để dự án hỗ trợ team tốt hơn"
+       ],
+       "job_requirement":[
+          "- Có ít nhất 6 tháng đảm nhiệm vị trí Team Leader trong lĩnh vực tài chính - ngân hàng",
+          "- Có đội ngũ nhân viên ít nhất 5 bạn. Nếu chưa có sẽ được hỗ trợ tuyển dụng.",
+          "- Có kỹ năng quản lý/ lập kế hoạch và thực hiện kế hoạch tuyển dụng / sắp xếp công việc ổn định.",
+          "- Kỹ năng giao tiếp, xây dựng hệ thống các quan hệ",
+          "- Có khả năng lắng nghe, tìm kiếm thông tin một cách tích cực, linh hoạt.",
+          "- Có kinh nghiệm quản lí, tuyển dụng, xây dựng và đào tạo đội ngũ nhân viên.",
+          "- Thời gian làm việc: Trong giờ hành chính T2-T6 từ 8h30 - 17h30 và thứ 7 làm buổi sáng."
+       ],
+       "benefit":[
+          "Thu nhập: ",
+          "- Lương cứng 10- 12 triệu. ( Được đào tạo nghiệp vụ 10 ngày)",
+          "- % Doanh số ==> Thu nhập có thể lên tới 30 triệu/ tháng, làm tốt không giới hạn thu nhập.",
+          "- Được cung cấp data( số điện thoại của khách) để giao việc cho nhân viên trong nhóm, không phải tự đi tìm kiếm khách hàng.",
+          "- Được đào tạo sâu thêm về nghiệp vụ ngân hàng và  kỹ năng bán hàng. Có cơ hội thăng tiến.",
+          "- Được tham gia các hội thảo 1 tháng/ lần về chuyên đề bán hàng và nghiệp vụ ngân hàng, nâng cao hiểu biết về lĩnh vực tài chính.",
+          "- Được tham gia đầy đủ các chế độ phúc lợi; giao lưu các hoạt động văn hóa văn nghệ, phong trào, teambuilding, nghỉ mát…",
+          "- Môi trường làm việc chuyên nghiệp, thân thiện, tôn trọng và năng động..."
+       ],
+       "quantity":"3"
+    }
+    ]
 
