@@ -7,7 +7,7 @@ def trade_spider(max_page):
     page = 1
     jobs_array = {}
     jobs = []
-    while page <= max_page :
+    while page <= 200:
         url = "https://www.chotot.com/toan-quoc/viec-lam?page=" + str(page)
         source = requests.get(url)
         soup = BeautifulSoup(source.text, "html.parser")
@@ -16,7 +16,7 @@ def trade_spider(max_page):
             jobs.append(get_item("https://www.chotot.com"+item.get('href')))
             count_company += 1
         page += 1
-        if count_company==1000:
+        if count_company == 5000:
             break
 
     jobs_array["jobs"] = jobs
@@ -27,20 +27,44 @@ def get_item(item_url):
     source = requests.get(item_url)
     soup = BeautifulSoup(source.text, "html.parser")
     info = soup.findAll('div', {'class', 'media-body media-middle'})
-    job_item = {}
-    job_item["Tiêu đề"] = str(title_process(str(soup.find('h1' , {'class' : 'adTilte___3UqYW'}))))
+    #Temporary store data crawled
+    temp = {}
+    temp["Tiêu đề"] = title_process(str(soup.find('h1' , {'class' : 'adTilte___3UqYW'})))
+    temp["Lương"] = salary_process(str(soup.find('span', {'itemprop' : 'price'})))
+    temp["Mô tả"] = description_process(str(soup.findAll('div', {'class' : 'd-lg-none d-block col-xs-12 no-padding'})[2]))
 
     for i in info:
         data_array = data_process(str(i))
         for i in range(len(data_array)):
-            job_item[data_array[0]] = data_array[1]
+            temp[data_array[0]] = data_array[1]
 
+    #Filter data need to store
+    job_item = filter_data(temp)
+    print(job_item)
     return job_item
 
-def title_process(str_title):
-    begin = str_title.find("<!-- -->") + 8
-    end = str_title.find("<\h1>") - 4
-    return str_title[begin:end]
+def title_process(title):
+    begin = title.find("<!-- -->") + 8
+    end = title.find("<\h1>") - 4
+    return title[begin:end]
+
+def salary_process(salary):
+    begin = salary.find("<span itemprop=\"price\">") + len("<span itemprop=\"price\">")
+    end = salary.find("<!-- -->")
+    return salary[begin:end]
+
+def description_process(description):
+    begin = description.find('<p style=\"white-space:pre-line\">') + len('<p style=\"white-space:pre-line\">')
+    end = description.find('</p>')
+    para = description[begin:end]
+    list_description = []
+
+    while(para.find("\n") != -1):
+        temp = para.find("\n")
+        list_description.append("-" + para[0:temp])
+        para = para[temp + 1:]
+
+    return list_description
 
 def data_process(data):
     category = ""
@@ -59,6 +83,30 @@ def data_process(data):
 
     return [category, value]
 
+def filter_data(dict):
+    job = {}
+    if "Tiêu đề" in dict:
+        job['Title'] = dict["Tiêu đề"]
+    if "Tên công ty" in dict:
+        job['Company'] = dict['Tên công ty']
+    if "Lương" in dict:
+        job['Salary'] = dict['Lương']
+    if "Địa chỉ" in dict:
+        job['Location'] = dict['Địa chỉ']
+    if "Loại công việc" in dict:
+        job['Type'] = dict['Loại công việc']
+    if "Ngành nghề" in dict:
+        job['Position'] = dict['Ngành nghề']
+    if "Mô tả" in dict:
+        job['Description'] = dict['Mô tả']
+    if "Chứng chỉ / kỹ năng" in dict:
+        job['Requirement'] = dict['Chứng chỉ / kỹ năng']
+    if "Các quyền lợi khác" in dict:
+        job['Benefit'] = dict['Các quyền lợi khác']
+    if "Số lượng tuyển dụng" in dict:
+        job['Quantity'] = dict["Số lượng tuyển dụng"]
+    return job 
+
 def writeJSONFile(dictionary):
     # Serializing json  
     json_object = json.dumps(dictionary, indent=len(dictionary.keys()), ensure_ascii=False)
@@ -72,7 +120,8 @@ def printToConsole(dictionary):
     for i in dictionary:
         print(index)
         for key, value in i.items():
-            print(key + ': ' + value)
+            print(key + ': ')
+            print(value)
         print("------------------")
         index += 1
 
