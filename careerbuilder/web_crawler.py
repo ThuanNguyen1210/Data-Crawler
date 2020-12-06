@@ -5,8 +5,8 @@ from bs4 import BeautifulSoup
 def trade_spider(max_page):
     data = {}
     jobs=[]
-    count_company=2000
-    page=41
+    count_company=0
+    page=1
     while page<= max_page :
         print()
         print("Page: ", page)
@@ -20,22 +20,28 @@ def trade_spider(max_page):
             href = links.get('href')
             title=links.get('title')
             ##print(href)
+            tempjob={}
             tempjob=get_item(href,title)
-            #if checkdata(tempjob):
-            jobs.append(tempjob)
+            if tempjob != {}:
+                jobs.append(tempjob)
+            else:
+                count_company-=1
             print(count_company, ": ",title)
             #test 5 company
-            if count_company==4000:
+            
+            if count_company==2000:
                 break
-        page +=1
-        if count_company==4000:
+        if count_company==2000:
+            print("End ", page)
             break
+            
+        page +=1
     data['jobs']=jobs
     #print(count_company)
     write_file(jobs)
 def checkdata(tempjob):
     for i in tempjob:
-        if i=="":
+        if tempjob[i]=="" and i!="quantity":
             return False
     return True
 def get_item(item_url,title):
@@ -43,8 +49,8 @@ def get_item(item_url,title):
     source= requests.get(item_url)
     soup= BeautifulSoup(source.text, "html.parser")
     #print(title)
-    jobs_item['Title']=title
-    jobs_item['Position']=title
+    jobs_item['job_title']=title
+    
     # item = soup.find('p', {'class' : 'title'})
     # if item:
     #     job = item.string
@@ -57,13 +63,14 @@ def get_item(item_url,title):
     if item:
         name_company = item.string
         link_company= item.get('href')
-        jobs_item['Company']=name_company
+        jobs_item['company']=name_company
         #print(name_company)
         #print(link_company)
         location=info_company(link_company)
         
     else:
-        jobs_item['Company']=""
+        jobs_item['company']=""
+        return {}
 
 
 
@@ -82,21 +89,24 @@ def get_item(item_url,title):
                 requi=subitem.find('p').text.strip()
             #jobs_item[subitem.find('strong').text.strip()]=subitem.find('p').text.strip()
             #print(subitem.find('strong').text.strip()," : ",subitem.find('p').text.strip())
-    jobs_item['Salary']=salary
-    jobs_item['Location']=location
+    if salary=="" or location=="" or title== "" or requi=="":
+        return {}
+    jobs_item['salary']=salary
+    jobs_item['location']=location
+    jobs_item['position']=title
 
-    stringtype=""
-    typearr=jobtype.split('\n')
-    tempcount=0
-    iint=-1
-    for istring in typearr:
-        iint+=1
-        if iint==tempcount:
-            #print(istring.strip())
-            stringtype+=istring.strip()+", "
-            tempcount +=3
-    stringtype=stringtype[:-2]  
-    jobs_item['Job type']=stringtype
+    # stringtype=""
+    # typearr=jobtype.split('\n')
+    # tempcount=0
+    # iint=-1
+    # for istring in typearr:
+    #     iint+=1
+    #     if iint==tempcount:
+    #         #print(istring.strip())
+    #         stringtype+=istring.strip()+", "
+    #         tempcount +=3
+    # stringtype=stringtype[:-2]  
+    # jobs_item['job_type']=stringtype
     
 
     
@@ -109,11 +119,11 @@ def get_item(item_url,title):
             if i!="":
                 temparr = temparr + i
         if arr[1].strip()=="Mô tả Công việc":
-            jobs_item['Job description']=temparr
+            jobs_item['job_description']=temparr
             break
         #print(item.text.split('\n')[2:])
 
-    jobs_item['Job requirement']=requi
+    jobs_item['job_requirement']=requi
 
     tempstring=""
     for item in soup.findAll('ul', {'class' : 'welfare-list'}):
@@ -121,9 +131,9 @@ def get_item(item_url,title):
             tempstring = tempstring + subitem.text+ ", "
         tempstring = tempstring[:-2]
     
-    jobs_item['Benefit']=str(tempstring)
+    jobs_item['benefit']=str(tempstring)
     #print("Phúc lợi: ", tempstring)
-
+    jobs_item['quantity']=""
     return jobs_item
 
 def info_company(item_url):
@@ -143,7 +153,7 @@ def info_company(item_url):
 
 def write_file(data):
     #json_object = json.dumps(data, indent=len(data.keys()),ensure_ascii=False)
-    with open('data_task22_part2.json', 'w', encoding='utf-8') as outfile:
+    with open('data_p1.json', 'w', encoding='utf-8') as outfile:
         json.dump(data, outfile, ensure_ascii=False)
 trade_spider(100)
 
