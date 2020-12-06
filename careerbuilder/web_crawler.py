@@ -5,8 +5,8 @@ from bs4 import BeautifulSoup
 def trade_spider(max_page):
     data = {}
     jobs=[]
-    count_company=0
-    page=1
+    count_company=2000
+    page=41
     while page<= max_page :
         print()
         print("Page: ", page)
@@ -21,8 +21,8 @@ def trade_spider(max_page):
             title=links.get('title')
             ##print(href)
             tempjob=get_item(href,title)
-            if checkdata(tempjob):
-                jobs.append(tempjob)
+            #if checkdata(tempjob):
+            jobs.append(tempjob)
             print("craw item",count_company, ": ",title)
             #test 5 company
             if count_company==4000:
@@ -103,11 +103,11 @@ def get_item(item_url,title):
 
     for item in soup.findAll('div', {'class' : 'detail-row'}):
         arr=item.text.split('\n')
-        temparr=[]
+        temparr=""
         for i in arr[2:]:
             ##print(i)
             if i!="":
-                temparr = temparr + [i]
+                temparr = temparr + i
         if arr[1].strip()=="Mô tả Công việc":
             jobs_item['Job description']=temparr
             break
@@ -120,7 +120,8 @@ def get_item(item_url,title):
         for subitem in item.findAll('li'):
             tempstring = tempstring + subitem.text+ ", "
         tempstring = tempstring[:-2]
-    jobs_item['Benefit']=tempstring
+    
+    jobs_item['Benefit']=str(tempstring)
     #print("Phúc lợi: ", tempstring)
 
     return jobs_item
@@ -142,9 +143,9 @@ def info_company(item_url):
 
 def write_file(data):
     #json_object = json.dumps(data, indent=len(data.keys()),ensure_ascii=False)
-    with open('data.json', 'w', encoding='utf-8') as outfile:
+    with open('data_task22_part2.json', 'w', encoding='utf-8') as outfile:
         json.dump(data, outfile, ensure_ascii=False)
-trade_spider(120)
+trade_spider(100)
 
     #json.dump(data, outfile, ensure_ascii=False)
 #with open('data.txt', 'w', encoding='utf-8') as outfile:
