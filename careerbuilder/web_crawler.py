@@ -23,7 +23,7 @@ def trade_spider(max_page):
             tempjob=get_item(href,title)
             #if checkdata(tempjob):
             jobs.append(tempjob)
-            print("craw item",count_company, ": ",title)
+            print(count_company, ": ",title)
             #test 5 company
             if count_company==4000:
                 break
