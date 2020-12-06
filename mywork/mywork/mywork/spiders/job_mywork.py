@@ -26,6 +26,7 @@ class JobSpider(scrapy.Spider):
             'location': str(response.css('div.box_main_info_job_left  div.row')[1].css('div.col-md-6')[0].css('span div.txt_ellipsis::text').get()).strip(),
             # 'major': str(response.css('div.box_main_info_job_left  div.row')[1].css('div.col-md-6')[1].css('span div.txt_ellipsis::text').get()).strip(),
             'position': str(response.css('div.box_main_info_job_left  div.row')[2].css('div.col-md-6')[0].css('span::text')[1].get()).strip(),
+
             # 'experience': str(response.css('div.box_main_info_job_left  div.row')[2].css('div.col-md-6')[1].css('span::text')[1].get()).strip(),
             # 'form_of_work': str(response.css('div.box_main_info_job_left  div.row')[3].css('div.col-md-6')[0].css('span::text')[1].get()).strip(),
             # 'degree_requirement': str(response.css('div.box_main_info_job_left  div.row')[3].css('div.col-md-6')[1].css('span::text')[1].get()).strip(),
