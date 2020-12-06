@@ -75,38 +75,18 @@ Các tệp JSON không hỗ trợ mô tả hoặc chỉ số cột.
 # Dataset
     Dataset của nhóm có định dạng file JSON gồm các field:
     job_title, company, salary, location, position, job_description, job_requirement, benefit, quantity
-
+    
     [
     {
-       "job_title":"Team Leader - Trưởng Nhóm Kinh Doanh Lương Cứng 12 Triệu + % Doanh Số",
-       "company":"Công Ty Tài chính Mcredit Tại Hà Nội",
-       "salary":"10 triệu - 12 triệu",
-       "location":"Hà Nội",
-       "position":"Trưởng nhóm",
-       "job_description":[
-          "- Lập và giám sát kế hoạch kinh doanh nhóm 5 - 10 hoặc 20 nhân viên chính thức",
-          "- Báo cáo hàng ngày về doanh số, cũng như kiến nghị để dự án hỗ trợ team tốt hơn"
-       ],
-       "job_requirement":[
-          "- Có ít nhất 6 tháng đảm nhiệm vị trí Team Leader trong lĩnh vực tài chính - ngân hàng",
-          "- Có đội ngũ nhân viên ít nhất 5 bạn. Nếu chưa có sẽ được hỗ trợ tuyển dụng.",
-          "- Có kỹ năng quản lý/ lập kế hoạch và thực hiện kế hoạch tuyển dụng / sắp xếp công việc ổn định.",
-          "- Kỹ năng giao tiếp, xây dựng hệ thống các quan hệ",
-          "- Có khả năng lắng nghe, tìm kiếm thông tin một cách tích cực, linh hoạt.",
-          "- Có kinh nghiệm quản lí, tuyển dụng, xây dựng và đào tạo đội ngũ nhân viên.",
-          "- Thời gian làm việc: Trong giờ hành chính T2-T6 từ 8h30 - 17h30 và thứ 7 làm buổi sáng."
-       ],
-       "benefit":[
-          "Thu nhập: ",
-          "- Lương cứng 10- 12 triệu. ( Được đào tạo nghiệp vụ 10 ngày)",
-          "- % Doanh số ==> Thu nhập có thể lên tới 30 triệu/ tháng, làm tốt không giới hạn thu nhập.",
-          "- Được cung cấp data( số điện thoại của khách) để giao việc cho nhân viên trong nhóm, không phải tự đi tìm kiếm khách hàng.",
-          "- Được đào tạo sâu thêm về nghiệp vụ ngân hàng và  kỹ năng bán hàng. Có cơ hội thăng tiến.",
-          "- Được tham gia các hội thảo 1 tháng/ lần về chuyên đề bán hàng và nghiệp vụ ngân hàng, nâng cao hiểu biết về lĩnh vực tài chính.",
-          "- Được tham gia đầy đủ các chế độ phúc lợi; giao lưu các hoạt động văn hóa văn nghệ, phong trào, teambuilding, nghỉ mát…",
-          "- Môi trường làm việc chuyên nghiệp, thân thiện, tôn trọng và năng động..."
-       ],
-       "quantity":"3"
+        "job_title": "Chuyên Viên Kinh Doanh - Hỗ Trợ Có Giao Dịch Sau 3 Tuần (Hh 80-100Tr)",
+        "company": "Công ty CP bất động sản Highland Việt Nam",
+        "salary": "Trên 30 triệu",
+        "location": "Hà Nội",
+        "position": "Nhân viên",
+        "job_description": "Nắm vững các thông tin về những dự án công ty đang triển khai, phân phối', 'Duy trì và chăm sóc khách hàng hiện hữu.', 'Tư vấn trực tiếp khách hàng những sản phẩm của công ty dựa trên data có sẵn, hoặc data tiềm năng từ khai thác các kênh marketing.', 'Giới thiệu, hướng dẫn khách hàng tham quan nhà mẫu và các dự án do Công ty phân phối.', 'Thực hiện giao dịch, ký kết hợp đồng mua bán cũng như hỗ trợ khách hàng theo dõi tiến độ thanh toán",
+        "job_requirement": "Nam / Nữ từ 22 - 30tuổi.', 'Không yêu cầu kinh nghiệm (Sẽ được đào tạo bài bản nếu trúng tuyển).', 'Có laptop và phương tiện đi lại.', 'Có khả năng giao tiếp, trình bày, thuyết phục tốt', 'Có khả năng học hỏi nhanh, nhiệt tình với công việc, chịu được áp lực cao trong công việc', 'Muốn phát triển bản thân, đột phá thu nhập', 'Ưu tiên ứng viên có kinh nghiệm bán hàng tư vấn các lĩnh vực tài chính, bảo hiểm, ô tô, hoặc đã từng làm trong lĩnh vực BĐS",
+        "benefit": "LƯƠNG THƯỞNG HẤP DẪN: Lương cứng + 70% hoa hồng (hoa hồng từ 50-100tr/sp),', 'Hỗ trợ Marketing không giới hạn, Được hỗ trợ data khách hàng khi mới bắt đầu công việc', 'Làm việc trong môi trường chuyên nghiệp và năng động, chủ động trong thời gian làm việc, có cơ hội được học tập và phát triển bản thân', 'Cơ hội thăng tiến ca', 'Được đào tạo bài bản từ cơ bản đến chuyên sâu', 'Đào tạo ứng dụng Marketing và các kênh tìm kiếm khách hàng', 'Đào tạo các kỹ năng cần thiết: bán hàng, giao tiếp, làm việc nhóm,…', 'Được sự hỗ trợ của các Leader có kinh nghiệm trong lĩnh vực BĐS', 'Trở thành nhân viên phân phối các sản phẩm BĐS hot nhất thị trường', 'Tham gia các hoạt động nội bộ có một không hai mang đậm dấu ấn HIGHLAND trong năm: Year-End Party, Teambuilding, Giáng Sinh, Sinh nhật….', 'Được tham gia đi du lịch cùng công ty 1 lần/năm', 'Được hưởng Các chế độ phúc lợi: Thưởng, Nghỉ lễ, Tết và được tham gia BHXH.', 'Chế độ khen thưởng hấp dẫn theo Tháng, Quý, Năm,…', 'Được hưởng lương tháng 13",
+        "quantity": "5"
     }
     ]
 
