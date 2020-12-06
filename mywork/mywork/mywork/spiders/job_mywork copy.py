@@ -30,9 +30,9 @@ class JobSpider(scrapy.Spider):
             # 'form_of_work': str(response.css('div.box_main_info_job_left  div.row')[3].css('div.col-md-6')[0].css('span::text')[1].get()).strip(),
             # 'degree_requirement': str(response.css('div.box_main_info_job_left  div.row')[3].css('div.col-md-6')[1].css('span::text')[1].get()).strip(),
             # 'gender_requirement': str(response.css('div.box_main_info_job_left  div.row')[4].css('div.col-md-6')[1].css('span::text')[1].get()).strip(),
-            'job_description': [x.strip('+-–*o✅"•\\> ').replace('-:-', '-') for x in response.css('div.mw-box-item')[0].css('::text').getall()],
-            'job_requirement': [x.strip('+-–*o✅"•\\> ').replace('-:-', '-') for x in response.css('div.mw-box-item')[2].css('::text').getall()],
-            'benefit': [x.strip('+-–*o✅"•\\> ').replace('-:-', '-') for x in response.css('div.mw-box-item')[1].css('::text').getall()],
+            'job_description': response.css('div.mw-box-item')[0].css('::text').getall(),
+            'job_requirement': response.css('div.mw-box-item')[2].css('::text').getall(),
+            'benefit': response.css('div.mw-box-item')[1].css('::text').getall(),
             'quantity': str(response.css('div.box_main_info_job_left  div.row')[4].css('div.col-md-6')[0].css('span::text')[1].get()).strip(),
             # 'profile_requirment': response.css('div.mw-box-item')[3].css('::text').getall(),
             # 'contact_infor': [response.css('div.mw-box-item.box-contact').css('div.row')[0].css('div.col-md-6.col-lg-3.label-contact').css('strong::text').get() + " " +
