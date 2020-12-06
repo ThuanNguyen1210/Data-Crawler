@@ -31,7 +31,8 @@ def get_item(item_url):
     temp = {}
     temp["Tiêu đề"] = title_process(str(soup.find('h1' , {'class' : 'adTilte___3UqYW'})))
     temp["Lương"] = salary_process(str(soup.find('span', {'itemprop' : 'price'})))
-    temp["Mô tả"] = description_process(str(soup.findAll('div', {'class' : 'd-lg-none d-block col-xs-12 no-padding'})[2]))
+    temp["Mô tả"] = str(description_process(str(soup.findAll('div', {
+                        'class': 'd-lg-none d-block col-xs-12 no-padding'})[2]))).replace("['", "").replace("']", "").replace("[]", "")
 
     for i in info:
         data_array = data_process(str(i))
