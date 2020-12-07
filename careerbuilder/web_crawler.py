@@ -5,8 +5,8 @@ from bs4 import BeautifulSoup
 def trade_spider(max_page):
     data = {}
     jobs=[]
-    count_company=0
-    page=1
+    count_company=2000
+    page=55
     while page<= max_page :
         print()
         print("Page: ", page)
@@ -29,9 +29,9 @@ def trade_spider(max_page):
             print(count_company, ": ",title)
             #test 5 company
             
-            if count_company==2000:
+            if count_company==4000:
                 break
-        if count_company==2000:
+        if count_company==4000:
             print("End ", page)
             break
             
@@ -153,9 +153,9 @@ def info_company(item_url):
 
 def write_file(data):
     #json_object = json.dumps(data, indent=len(data.keys()),ensure_ascii=False)
-    with open('data_p1.json', 'w', encoding='utf-8') as outfile:
+    with open('data_p2.json', 'w', encoding='utf-8') as outfile:
         json.dump(data, outfile, ensure_ascii=False)
-trade_spider(100)
+trade_spider(150)
 
     #json.dump(data, outfile, ensure_ascii=False)
 #with open('data.txt', 'w', encoding='utf-8') as outfile:
