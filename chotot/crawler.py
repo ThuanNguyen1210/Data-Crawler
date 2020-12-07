@@ -4,10 +4,10 @@ import json
 
 def trade_spider(max_page):
     count_company=0
-    page = 1
+    page = 161
     jobs_array = {}
     jobs = []
-    while page <= 200:
+    while page <= max_page:
         url = "https://www.chotot.com/toan-quoc/viec-lam?page=" + str(page)
         source = requests.get(url)
         soup = BeautifulSoup(source.text, "html.parser")
@@ -21,7 +21,7 @@ def trade_spider(max_page):
 
     jobs_array["jobs"] = jobs
     writeJSONFile(jobs_array)
-    printToConsole(jobs)
+    # printToConsole(jobs)
 
 def get_item(item_url):
     source = requests.get(item_url)
@@ -87,25 +87,25 @@ def data_process(data):
 def filter_data(dict):
     job = {}
     if "Tiêu đề" in dict:
-        job['Title'] = dict["Tiêu đề"]
+        job['job_title'] = dict["Tiêu đề"]
     if "Tên công ty" in dict:
-        job['Company'] = dict['Tên công ty']
+        job['company'] = dict['Tên công ty']
     if "Lương" in dict:
-        job['Salary'] = dict['Lương']
+        job['salary'] = dict['Lương']
     if "Địa chỉ" in dict:
-        job['Location'] = dict['Địa chỉ']
-    if "Loại công việc" in dict:
-        job['Type'] = dict['Loại công việc']
+        job['location'] = dict['Địa chỉ']
     if "Ngành nghề" in dict:
-        job['Position'] = dict['Ngành nghề']
+        job['position'] = dict['Ngành nghề']
     if "Mô tả" in dict:
-        job['Description'] = dict['Mô tả']
-    if "Chứng chỉ / kỹ năng" in dict:
-        job['Requirement'] = dict['Chứng chỉ / kỹ năng']
+        job['job_description'] = dict['Mô tả']
+    # if "Chứng chỉ / kỹ năng" in dict:
+    #     job['Requirement'] = dict['Chứng chỉ / kỹ năng']
+    if "Loại công việc" in dict:
+        job['job_requirement'] = dict['Loại công việc']
     if "Các quyền lợi khác" in dict:
-        job['Benefit'] = dict['Các quyền lợi khác']
+        job['benefit'] = dict['Các quyền lợi khác']
     if "Số lượng tuyển dụng" in dict:
-        job['Quantity'] = dict["Số lượng tuyển dụng"]
+        job['quantity'] = dict["Số lượng tuyển dụng"]
     return job 
 
 def writeJSONFile(dictionary):
@@ -113,8 +113,20 @@ def writeJSONFile(dictionary):
     json_object = json.dumps(dictionary, indent=len(dictionary.keys()), ensure_ascii=False)
 
     # Writing to sample.json 
-    with open("sample.json", "a", encoding='utf8') as outfile: 
-        outfile.write(json_object) 
+    # with open("sample.json", "a", encoding='utf8') as outfile: 
+    #     outfile.write(json_object)
+    
+    # with open("data.json", "a", encoding='utf8') as outfile:
+    #     outfile.write(json_object)
+
+    # with open("data51_100.json", "a", encoding='utf8') as outfile:
+    #     outfile.write(json_object)
+
+    # with open("data101_160.json", "a", encoding='utf8') as outfile:
+    #     outfile.write(json_object)
+
+    with open("data161_180.json", "a", encoding='utf8') as outfile:
+        outfile.write(json_object)
 
 def printToConsole(dictionary):
     index = 1
@@ -126,4 +138,4 @@ def printToConsole(dictionary):
         print("------------------")
         index += 1
 
-trade_spider(50)
+trade_spider(180)
