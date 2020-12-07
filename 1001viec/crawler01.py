@@ -31,14 +31,15 @@ def get_item(item_url):
     job_item["Tiêu đề"] = title_process(str(soup.find('div' , {'class' : 'listingInfo'})))
     job_item["Tên công ty"] = company_process(str(soup.find('div',{'class': 'comp-profile-content'})))
     mota = info[len(info)-3]
-    job_item["mô tả"] = motaa(mota)
-    job_item["yêu cầu"] = yeucau(info[len(info)-2])
-    job_item["quyền lợi"] = quyenloi(info[len(info)-1])
+    job_item["mô tả"] = str(motaa(mota)).replace("[", "").replace("]","")
+    job_item["yêu cầu"] = str(yeucau(info[len(info)-2])).replace("[", "").replace("]","")
+    job_item["quyền lợi"] = str(
+        quyenloi(info[len(info)-1])).replace("[", "").replace("]", "")
     job_item["số lượng"] = "1"
     for i in info[0:len(info) - 3]:
         data_array = data_process(str(i))
         for i in range(len(data_array)):
-            job_item[data_array[0]] = data_array[1]
+            job_item[data_array[0]] = str(data_array[1]).replace("[", "").replace("]", "")
     tem=filter_data(job_item)
     return tem
 def motaa(mota_file):
@@ -155,25 +156,25 @@ def data_process(data):
 def filter_data(dict):
     job = {}
     if "Tiêu đề" in dict:
-        job['Title'] = dict["Tiêu đề"]
+        job['job_title'] = dict["Tiêu đề"]
     if "Tên công ty" in dict:
-        job['Company'] = dict['Tên công ty']
+        job['company'] = dict['Tên công ty']
     if "Lương:" in dict:
-        job['Salary'] = dict['Lương:']
+        job['salary'] = dict['Lương:']
     if "Nơi làm việc:" in dict:
-        job['Location'] = dict['Nơi làm việc:']
+        job['location'] = dict['Nơi làm việc:']
     if "Ngành:" in dict:
-        job['Type'] = dict['Ngành:']
-    if "Ngành:" in dict:
-        job['Position'] = dict['Ngành:']
+        job['position'] = dict['Ngành:']
+    # if "Ngành:" in dict:
+    #     job['Position'] = dict['Ngành:']
     if "mô tả" in dict:
-        job['Description'] = dict['mô tả']
+        job['job_description'] = dict['mô tả']
     if "yêu cầu" in dict:
-        job['Requirement'] = dict['yêu cầu']
+        job['job_requirement'] = dict['yêu cầu']
     if "quyền lợi" in dict:
-        job['Benefit'] = dict['quyền lợi']
+        job['benefit'] = dict['quyền lợi']
     if "số lượng" in dict:
-        job['Quantity'] = dict["số lượng"]
+        job['quantity'] = dict["số lượng"]
     return job 
 
 def writeJSONFile(dictionary):
@@ -181,8 +182,11 @@ def writeJSONFile(dictionary):
     json_object = json.dumps(dictionary, indent=len(dictionary.keys()), ensure_ascii=False)
 
     # Writing to sample.json 
-    with open("sample.json", "a", encoding='utf8') as outfile: 
-        outfile.write(json_object) 
+    # with open("sample.json", "a", encoding='utf8') as outfile: 
+    #     outfile.write(json_object)
+
+    with open("data.json", "a", encoding='utf8') as outfile:
+        outfile.write(json_object)
 
 def printToConsole(dictionary):
     index = 1
