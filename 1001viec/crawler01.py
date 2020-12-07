@@ -158,21 +158,21 @@ def filter_data(dict):
         job['Title'] = dict["Tiêu đề"]
     if "Tên công ty" in dict:
         job['Company'] = dict['Tên công ty']
-    if "Lương" in dict:
-        job['Salary'] = dict['Lương']
-    if "Nơi làm việc" in dict:
-        job['Location'] = dict['Nơi làm việc']
-    if "Ngành" in dict:
-        job['Type'] = dict['Ngành']
-    if "Ngành" in dict:
-        job['Position'] = dict['Ngành']
+    if "Lương:" in dict:
+        job['Salary'] = dict['Lương:']
+    if "Nơi làm việc:" in dict:
+        job['Location'] = dict['Nơi làm việc:']
+    if "Ngành:" in dict:
+        job['Type'] = dict['Ngành:']
+    if "Ngành:" in dict:
+        job['Position'] = dict['Ngành:']
     if "mô tả" in dict:
         job['Description'] = dict['mô tả']
     if "yêu cầu" in dict:
         job['Requirement'] = dict['yêu cầu']
     if "quyền lợi" in dict:
         job['Benefit'] = dict['quyền lợi']
-    if "số lượng " in dict:
+    if "số lượng" in dict:
         job['Quantity'] = dict["số lượng"]
     return job 
 
