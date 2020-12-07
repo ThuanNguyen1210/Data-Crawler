@@ -16,42 +16,130 @@ def trade_spider(max_page):
             jobs.append(get_item(sub_url))
             count_company += 1
         page += 1
-        if count_company==1000:
+        if count_company==2000:
             break
 
     jobs_array["jobs"] = jobs
     writeJSONFile(jobs_array)
-    printToConsole(jobs)
+    #printToConsole(jobs)
 
 def get_item(item_url):
     source = requests.get(item_url)
     soup = BeautifulSoup(source.text, "html.parser")
-    info = soup.findAll('div', {'class', 'displayFieldBlock'})
+    info = soup.findAll('div', {'class', 'displayFieldBlock'}) #Array info
     job_item = {}
     job_item["Tiêu đề"] = title_process(str(soup.find('div' , {'class' : 'listingInfo'})))
-    
-
-    for i in info:
+    job_item["Tên công ty"] = company_process(str(soup.find('div',{'class': 'comp-profile-content'})))
+    mota = info[len(info)-3]
+    job_item["mô tả"] = motaa(mota)
+    job_item["yêu cầu"] = yeucau(info[len(info)-2])
+    job_item["quyền lợi"] = quyenloi(info[len(info)-1])
+    job_item["số lượng"] = "1"
+    for i in info[0:len(info) - 3]:
         data_array = data_process(str(i))
         for i in range(len(data_array)):
             job_item[data_array[0]] = data_array[1]
-
-    return job_item
-
+    tem=filter_data(job_item)
+    return tem
+def motaa(mota_file):
+    value =[]
+    x=mota_file.findAll('li')
+    for i in x:
+        value.append("-"+i.text)
+    y=mota_file.findAll('p')
+    for i in y:
+        value.append(i.text)
+    if x == []:
+        if y==[]:
+            mota_file=str(mota_file)
+            a=len(mota_file)
+            mota_file=str(mota_file[84:a])
+            while (mota_file.find("<br/>")!=-1):
+                temp=mota_file.find("<br/>")
+                value.append("-"+mota_file[0:temp])
+                mota_file=mota_file[temp+4]
+    
+    return value
+def yeucau(mota_file):
+    value =[]
+    x=mota_file.findAll('li')
+    for i in x:
+        value.append("-"+i.text)
+    y=mota_file.findAll('p')
+    for i in y:
+        value.append(i.text)
+    if x == []:
+        if y==[]:
+            mota_file=str(mota_file)
+            a=len(mota_file)
+            mota_file=str(mota_file[85:a])
+            while (mota_file.find("<br/>")!=-1):
+                temp=mota_file.find("<br/>")
+                value.append("-"+mota_file[0:temp])
+                mota_file=mota_file[temp+4]
+    
+    return value
+def quyenloi(mota_file):
+    value =[]
+    x=mota_file.findAll('li')
+    for i in x:
+        value.append("-"+i.text)
+    y=mota_file.findAll('p')
+    for i in y:
+        value.append(i.text)
+    if x == []:
+        if y==[]:
+            mota_file=str(mota_file)
+            a=len(mota_file)
+            mota_file=str(mota_file[78:a])
+            while (mota_file.find("<br/>")!=-1):
+                temp=mota_file.find("<br/>")
+                value.append("-"+mota_file[0:temp])
+                mota_file=mota_file[temp+4]
+    
+    return value
 def title_process(str_title):
     begin = str_title.find("<h1>") +4
     end = str_title.find("</h1>"  )
     return str_title[begin:end]
+def company_process(str_company):
+    begin = str_company.find("</div>")+39
+    end = str_company.find("</span>")
+    return str_company[begin:end]
+
 
 def data_process(data):
     category = ""
-    value = ""
-    xx= data.find("<ul><li>")
-    
+    value =""
+    #xx= data.find( "<ul><li>")
     yy= data.find("<!-- <pre>")
     aa= data.find("<!-- <h3>Tỉnh / Thành:</h3> -->")
     date = data.find("<!-- <h3>Ngày đăng:</h3> -->")
-    if aa!=-1:
+    nganh = data.find("<h3>Ngành:</h3>")  
+    if nganh!=-1: #ngành
+        begin = data.find("<h3>")+4
+        middle = data.find("</h3>")
+        end = data.find("</div>")
+        category=data[begin:middle]
+        value=data[middle+32:end]
+        x=data.find("\t\t\t\t")
+        if x != -1:
+            value = [data[middle+32:x]]
+            data =data[x+8:end]
+            while(data.find("\t\t\t\t") != -1):
+                temp = data.find("\t\t\t\t")
+                value.append("-" + data[0:temp])
+                data = data[temp + 4:]
+        return[category,value]
+
+    if yy!=-1:#lương
+        begin = data.find("<h3>")+4
+        middle = data.find("</h3>")
+        end = yy
+        category=data[begin:middle]
+        value = data[middle+97:end-61]
+        return[category,value]
+    if aa!=-1:#nơi làm việc
         begin = data.find("<h3>")+4
         middle = data.find("</h3>")
         end = data.find("</div>")
@@ -59,43 +147,34 @@ def data_process(data):
         value=data[middle+len("Tỉnh / Thành:</h3> --><h3>")+51:end-15]
         return[category,value]
 
-    if yy!=-1:
-        begin = data.find("<h3>")+4
-        middle = data.find("</h3>")
-        end = yy
-        category=data[begin:middle]
-        value = data[middle+97:end-61]
-        return[category,value]
     
-    
+     
     if date!=-1:
-        begin = data.find("<h3>")+4
-        middle = data.find("</h3>")
-        #datex= data.find("<div class="displayField">")
-        end =data.find("</div>\n</div>")-10
-        category=data[middle+14:middle+28]
-        value = data[end:end+10]
-        return[category,value]
-   
-
-
-
-
-    
-    if xx==-1:
-        begin = data.find("<h3>")+4
-        middle = data.find("</h3>")
-        end = data.find("</div>")
-        category=data[begin:middle]
-        value=data[middle+32:end]
         return[category,value]
     return[category,value]
-        
-    
-  
-  
-
-    
+def filter_data(dict):
+    job = {}
+    if "Tiêu đề" in dict:
+        job['Title'] = dict["Tiêu đề"]
+    if "Tên công ty" in dict:
+        job['Company'] = dict['Tên công ty']
+    if "Lương" in dict:
+        job['Salary'] = dict['Lương']
+    if "Nơi làm việc" in dict:
+        job['Location'] = dict['Nơi làm việc']
+    if "Ngành" in dict:
+        job['Type'] = dict['Ngành']
+    if "Ngành" in dict:
+        job['Position'] = dict['Ngành']
+    if "mô tả" in dict:
+        job['Description'] = dict['mô tả']
+    if "yêu cầu" in dict:
+        job['Requirement'] = dict['yêu cầu']
+    if "quyền lợi" in dict:
+        job['Benefit'] = dict['quyền lợi']
+    if "số lượng " in dict:
+        job['Quantity'] = dict["số lượng"]
+    return job 
 
 def writeJSONFile(dictionary):
     # Serializing json  
@@ -110,12 +189,13 @@ def printToConsole(dictionary):
     for i in dictionary:
         print(index)
         for key, value in i.items():
-            print(key + ': ' + value)
-        print("------------------")
+            print(key)
+            print(value)
+        print("------------------") 
         index += 1
 
 def process(data):
     begin = data.find("href=\"")
     end = data.rfind("\">")
     return data[begin+len("href=\""):end]
-trade_spider(110)
+trade_spider(200)
