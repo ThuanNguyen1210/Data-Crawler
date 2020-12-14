@@ -3,10 +3,11 @@ import requests
 from bs4 import BeautifulSoup
 
 def trade_spider(max_page):
+    ifile=3
     data = {}
     jobs=[]
-    count_company=2000
-    page=55
+    count_company=0
+    page=160
     while page<= max_page :
         print()
         print("Page: ", page)
@@ -29,16 +30,25 @@ def trade_spider(max_page):
             print(count_company, ": ",title)
             #test 5 company
             
-            if count_company==4000:
+            if count_company==1500:
+                ifile+=1
+                write_file(jobs,ifile)
+                jobs=[]
+                count_company=0
+            if ifile==6:
                 break
-        if count_company==4000:
-            print("End ", page)
-            break
+        if count_company==1500:
+            ifile+=1
+            write_file(jobs,ifile)
+            jobs=[]
+            count_company=0
+        if ifile==6:
+                break
             
         page +=1
-    data['jobs']=jobs
+    #data['jobs']=jobs
     #print(count_company)
-    write_file(jobs)
+    #write_file(jobs)
 def checkdata(tempjob):
     for i in tempjob:
         if tempjob[i]=="" and i!="quantity":
@@ -151,11 +161,12 @@ def info_company(item_url):
 
     return ""
 
-def write_file(data):
+def write_file(data,i):
     #json_object = json.dumps(data, indent=len(data.keys()),ensure_ascii=False)
-    with open('data_p2.json', 'w', encoding='utf-8') as outfile:
+    name = "data_part"+str(i)+".json"
+    with open(name, 'w', encoding='utf-8') as outfile:
         json.dump(data, outfile, ensure_ascii=False)
-trade_spider(150)
+trade_spider(500)
 
     #json.dump(data, outfile, ensure_ascii=False)
 #with open('data.txt', 'w', encoding='utf-8') as outfile:
