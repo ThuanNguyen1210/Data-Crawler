@@ -3,11 +3,11 @@ import requests
 from bs4 import BeautifulSoup
 
 def trade_spider(max_page):
-    ifile=3
+    ifile=4
     data = {}
     jobs=[]
     count_company=0
-    page=160
+    page=250
     while page<= max_page :
         print()
         print("Page: ", page)
@@ -30,14 +30,14 @@ def trade_spider(max_page):
             print(count_company, ": ",title)
             #test 5 company
             
-            if count_company==1500:
+            if count_company==1000:
                 ifile+=1
                 write_file(jobs,ifile)
                 jobs=[]
                 count_company=0
             if ifile==6:
                 break
-        if count_company==1500:
+        if count_company==1000:
             ifile+=1
             write_file(jobs,ifile)
             jobs=[]
