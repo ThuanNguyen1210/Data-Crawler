@@ -1,7 +1,6 @@
 CREATE TABLE Employment_Information(
     EID INT,
     ENAME VARCHAR(30),
-    ID_JOB INT,
     PRIMARY KEY(EID)
 );
 

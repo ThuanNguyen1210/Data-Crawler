@@ -19,11 +19,10 @@ cursor = con.cursor()
 for item in list_empInfo:
     EID = item.get("EID")
     ENAME = item.get("ENAME")
-    ID_JOB = item.get("ID_JOB")
 
     cursor.execute(
-        "insert into Employment_Information(EID, ENAME, ID_JOB) values(%s, %s, %s)",
-        (EID, ENAME, ID_JOB))
+        "insert into Employment_Information(EID, ENAME) values(%s, %s)",
+        (EID, ENAME))
 
 for item in list_individual:
     IID = item.get("IID")
