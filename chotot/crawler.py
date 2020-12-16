@@ -3,25 +3,25 @@ from bs4 import BeautifulSoup
 import json
 
 def trade_spider(max_page):
-    count_company=0
-    page = 161
+    count_company = 0
+    page = 151
     jobs_array = {}
     jobs = []
     while page <= max_page:
         url = "https://www.chotot.com/toan-quoc/viec-lam?page=" + str(page)
         source = requests.get(url)
         soup = BeautifulSoup(source.text, "html.parser")
-        for links in soup.findAll('li', {'class' : 'wrapperAdItem___2woJ1'}):
+        for links in soup.findAll('div', {'class' : 'thumbnailWrapper___1Q1wS'}):
             item = links.find('a')
             jobs.append(get_item("https://www.chotot.com"+item.get('href')))
             count_company += 1
         page += 1
-        if count_company == 5000:
+        if count_company == 3000:
             break
 
     jobs_array["jobs"] = jobs
     writeJSONFile(jobs_array)
-    # printToConsole(jobs)
+    printToConsole(jobs)
 
 def get_item(item_url):
     source = requests.get(item_url)
@@ -41,7 +41,6 @@ def get_item(item_url):
 
     #Filter data need to store
     job_item = filter_data(temp)
-    print(job_item)
     return job_item
 
 def title_process(title):
@@ -112,20 +111,7 @@ def writeJSONFile(dictionary):
     # Serializing json  
     json_object = json.dumps(dictionary, indent=len(dictionary.keys()), ensure_ascii=False)
 
-    # Writing to sample.json 
-    # with open("sample.json", "a", encoding='utf8') as outfile: 
-    #     outfile.write(json_object)
-    
-    # with open("data.json", "a", encoding='utf8') as outfile:
-    #     outfile.write(json_object)
-
-    # with open("data51_100.json", "a", encoding='utf8') as outfile:
-    #     outfile.write(json_object)
-
-    # with open("data101_160.json", "a", encoding='utf8') as outfile:
-    #     outfile.write(json_object)
-
-    with open("data161_180.json", "a", encoding='utf8') as outfile:
+    with open("sample151_200.json", "w", encoding='utf8') as outfile:
         outfile.write(json_object)
 
 def printToConsole(dictionary):
@@ -138,4 +124,4 @@ def printToConsole(dictionary):
         print("------------------")
         index += 1
 
-trade_spider(180)
+trade_spider(200)
