@@ -4,7 +4,7 @@ import json
 
 def trade_spider(max_page):
     count_company = 0
-    page = 151
+    page = 301
     jobs_array = {}
     jobs = []
     while page <= max_page:
@@ -16,7 +16,7 @@ def trade_spider(max_page):
             jobs.append(get_item("https://www.chotot.com"+item.get('href')))
             count_company += 1
         page += 1
-        if count_company == 3000:
+        if count_company == 5000:
             break
 
     jobs_array["jobs"] = jobs
@@ -111,7 +111,7 @@ def writeJSONFile(dictionary):
     # Serializing json  
     json_object = json.dumps(dictionary, indent=len(dictionary.keys()), ensure_ascii=False)
 
-    with open("sample151_200.json", "w", encoding='utf8') as outfile:
+    with open("sample301_400.json", "w", encoding='utf8') as outfile:
         outfile.write(json_object)
 
 def printToConsole(dictionary):
@@ -124,4 +124,4 @@ def printToConsole(dictionary):
         print("------------------")
         index += 1
 
-trade_spider(200)
+trade_spider(400)
