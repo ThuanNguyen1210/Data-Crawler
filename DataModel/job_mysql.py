@@ -19,7 +19,7 @@ cursor = con.cursor()
 for item in list_empInfo:
     EID = item.get("EID")
     ENAME = item.get("ENAME")
-
+    
     cursor.execute(
         "insert into Employment_Information(EID, ENAME) values(%s, %s)",
         (EID, ENAME))
@@ -48,7 +48,6 @@ for item in list_company:
     CBENEFIT = item.get("CBENEFIT")
     CSALARY = item.get("CSALARY")
     CREQUIREMENT = item.get("CREQUIREMENT")
-    CLOCAL = item.get("CLOCAL")
 
     cursor.execute(
         "insert into Company(CID, CNAME, CLOCAL, CPOSITION, CDESCRIPTION, CBENEFIT, CSALARY, CREQUIREMENT) values(%s, %s, %s, %s, %s, %s, %s, %s)",

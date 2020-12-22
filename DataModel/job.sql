@@ -1,11 +1,13 @@
+DROP TABLE IF EXISTS Employment_Information;
 CREATE TABLE Employment_Information(
-    EID INT,
+    EID VARCHAR(10),
     ENAME VARCHAR(30),
     PRIMARY KEY(EID)
 );
 
+DROP TABLE IF EXISTS Individual;
 CREATE TABLE Individual(
-    IID INT,
+    IID VARCHAR(10),
     INAME VARCHAR(30),
     ILOCAL VARCHAR(30),
     IPOSTION VARCHAR(30),
@@ -18,8 +20,9 @@ CREATE TABLE Individual(
     FOREIGN KEY (IID) REFERENCES Employment_Information(EID)
 );
 
+DROP TABLE IF EXISTS Company;
 CREATE TABLE Company(
-    CID INT,
+    CID VARCHAR(10),
     CNAME VARCHAR(30),
     CLOCAL VARCHAR(30),
     CPOSITION VARCHAR(30),
@@ -31,8 +34,9 @@ CREATE TABLE Company(
     FOREIGN KEY (CID) REFERENCES Employment_Information(EID)
 );
 
+DROP TABLE IF EXISTS Company_Information;
 CREATE TABLE Company_Information(
-    CIID INT,
+    CIID VARCHAR(10),
     CINAME VARCHAR(30),
     ADDRESS VARCHAR(30),
     PRIMARY KEY (CIID),
