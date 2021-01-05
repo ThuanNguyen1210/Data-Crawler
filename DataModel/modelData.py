@@ -9,11 +9,34 @@ cursor = con.cursor()
 
 i = 0
 for item in json_obj:
+
     i += 1
-    ID = "ID" + "{:06d}".format(i)
     EID = "EID" + "{:06d}".format(i)
 
-    # NAME = item.get("company")
+    IEID = EID
+    # if item.get("job_title") is not None:
+    #     check = item.get("job_title").find("hot")
+    #     if check != -1:
+    #         INAME = item.get("job_title")
+    #     else:
+    #         INAME = -1
+    INAME = item.get("job_title")
+    ILOCATION = item.get("location")
+
+    OEID = EID
+    if item.get("company") is not None:
+        check = item.get("company").find("Công ty")
+        if check != -1:
+            ONAME = item.get("company")
+        else:
+            ONAME = -1
+    else:
+        ONAME = -1
+    OLOCATION = item.get("location")
+
+
+    ID = "ID" + "{:06d}".format(i)
+    IEID = EID
     if item.get("company") is not None:
         check = item.get("company").find("Công ty")
         if check != -1:
@@ -22,8 +45,7 @@ for item in json_obj:
             NAME = -1
     else:
         NAME = -1
-
-    LOCAL = item.get("location")
+    LOCATION = item.get("location")
     POSITION = item.get("position")
     DESCRIPTION = item.get("job_description")
     BENEFIT = item.get("benefit")
@@ -31,35 +53,21 @@ for item in json_obj:
     REQUIREMENT = item.get("job_requirement")
     QUANTITY = item.get("quantity")
 
-    IID = ID
-    INAME = item.get("job_title")
-    ILOCAL = item.get("location")
-
-    CID = ID
-
-    if item.get("company") is not None:
-        check = item.get("company").find("Công ty")
-        if check != -1:
-            CNAME = item.get("company")
-        else:
-            CNAME = -1
-    else:
-        CNAME = -1
-
-    CLOCAL = item.get("location")
+    cursor.execute(
+        "insert into EID(EID) values(%s)",
+        (EID))
 
     cursor.execute(
-        "insert into Employment_Information(ID, EID, NAME, LOCAL, POSTION, DESCRIPTION, BENEFIT, SALARY, REQUIREMENT, QUANTITY) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-        (ID, EID, NAME, LOCAL, POSITION, DESCRIPTION, BENEFIT, SALARY, REQUIREMENT, QUANTITY))
+        "insert into Individual(IEID, INAME, ILOCATION) values(%s, %s, %s)",
+        (IEID, INAME, ILOCATION))
 
     cursor.execute(
-        "insert into Individual(IID, INAME, ILOCAL) values(%s, %s, %s)",
-        (IID, INAME, ILOCAL))
+        "insert into Organization(OEID, ONAME, OLOCATION) values(%s, %s, %s)",
+        (OEID, ONAME, OLOCATION))
 
     cursor.execute(
-        "insert into Organization(CID, CNAME, CLOCAL) values(%s, %s, %s)",
-        (CID, CNAME, CLOCAL))
-
+        "insert into Employment_Information(ID, EID, NAME, SALARY, LOCATION, POSITION, DESCRIPTION, REQUIREMENT, BENEFIT, QUANTITY) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+        (ID, EID, NAME, SALARY, LOCATION, POSITION, DESCRIPTION, REQUIREMENT, BENEFIT, QUANTITY))
 
 con.commit()
 con.close()
