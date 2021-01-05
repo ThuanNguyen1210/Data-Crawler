@@ -177,6 +177,6 @@ def loca_salary_analyze(location_ar, salary_lst):
     plt.show()
 
 
-# salary_analyzer(salary)
+salary_analyzer(salary)
 # location_analyze(location)
-loca_salary_analyze(location, salary)
+# loca_salary_analyze(location, salary)
