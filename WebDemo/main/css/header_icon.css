@@ -1,0 +1,15 @@
+header .bag img{
+    width: 25px;
+}
+
+header .bag img:hover{
+    transform: translateY(2px);
+}
+header .user img{
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 25px;
+}
+header .user img:hover{
+    transform: translateY(2px);
+}
