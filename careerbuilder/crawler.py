@@ -3,11 +3,11 @@ import requests
 from bs4 import BeautifulSoup
 
 def trade_spider(max_page):
-    ifile=4
+    ifile=0
     data = {}
     jobs=[]
     count_company=0
-    page=250
+    page=1
     while page<= max_page :
         print()
         print("Page: ", page)
@@ -35,14 +35,14 @@ def trade_spider(max_page):
                 write_file(jobs,ifile)
                 jobs=[]
                 count_company=0
-            if ifile==6:
+            if ifile==2:
                 break
         if count_company==1000:
             ifile+=1
             write_file(jobs,ifile)
             jobs=[]
             count_company=0
-        if ifile==6:
+        if ifile==2:
                 break
             
         page +=1
@@ -166,7 +166,7 @@ def write_file(data,i):
     name = "data_part"+str(i)+".json"
     with open(name, 'w', encoding='utf-8') as outfile:
         json.dump(data, outfile, ensure_ascii=False)
-trade_spider(500)
+trade_spider(60)
 
     #json.dump(data, outfile, ensure_ascii=False)
 #with open('data.txt', 'w', encoding='utf-8') as outfile:
