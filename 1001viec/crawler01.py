@@ -32,7 +32,8 @@ def get_item(item_url):
     job_item["Tên công ty"] = company_process(str(soup.find('div',{'class': 'comp-profile-content'})))
     mota = info[len(info)-3]
     job_item["mô tả"] = str(motaa(mota)).replace("[", "").replace("]","")
-    job_item["yêu cầu"] = str(yeucau(info[len(info)-2])).replace("[", "").replace("]","")
+    job_item["yêu cầu"] = str(yeucau(
+        info[len(info)-2])).replace("[", "").replace("]", "").replace("\\xa0", "")
     job_item["quyền lợi"] = str(
         quyenloi(info[len(info)-1])).replace("[", "").replace("]", "")
     job_item["số lượng"] = "1"
@@ -185,7 +186,7 @@ def writeJSONFile(dictionary):
     # with open("sample.json", "a", encoding='utf8') as outfile: 
     #     outfile.write(json_object)
 
-    with open("data.json", "a", encoding='utf8') as outfile:
+    with open("data1.json", "a", encoding='utf8') as outfile:
         outfile.write(json_object)
 
 def printToConsole(dictionary):
@@ -202,4 +203,4 @@ def process(data):
     begin = data.find("href=\"")
     end = data.rfind("\">")
     return data[begin+len("href=\""):end]
-trade_spider(200)
+trade_spider(100)
