@@ -1,7 +1,7 @@
 import json
 import pymysql
 
-json_data = open("job_detail.json", encoding="utf8").read()
+json_data = open("data.json", encoding="utf8").read()
 json_obj = json.loads(json_data)
 
 con = pymysql.connect(host="localhost", user="root", password="", db="job")
