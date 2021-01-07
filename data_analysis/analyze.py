@@ -66,13 +66,13 @@ def location_analyze(location_ar):
     temp = []
     result = []
     for val in location_ar:
-        if re.findall(',', val):
+        if re.findall(',', str(val)):
             temp += [val[val.rfind(',') + 2:]]
         else:
             temp += [val]
 
     for val in temp:
-        if re.findall('[0-9.-]', val):
+        if re.findall('[0-9.-]', str(val)):
             continue
         else:
             result += [val]
@@ -81,13 +81,13 @@ def location_analyze(location_ar):
     for val in result:
         if val in dic.keys():
             dic[val] += 1
-        elif val in ['TPHCM', 'TP HCM', 'Ho Chi Minh City', 'Thành Phố Hồ Chí Minh', 'Thành phố Hồ Chí Minh', 'HCM', 'TP Hồ Chí Minh', 'Tp Hồ Chí Minh', 'HCMC']:
+        elif val in ['TPHCM', 'TP HCM', 'Ho Chi Minh City', 'Thành Phố Hồ Chí Minh', 'Thành phố Hồ Chí Minh', 'HCM', 'TP Hồ Chí Minh', 'Tp Hồ Chí Minh', 'HCMC','Ho Chi Minh']:
             dic['Hồ Chí Minh'] += 1
         elif val in ['Tỉnh Bình Dương', 'Thuận An Bình Dương']:
             dic['Bình Dương'] += 1
-        elif val in ['HN', 'Hà Nội  ']:
+        elif val in ['HN', 'Hà Nội  ', 'Hanoi', 'TP Hà Nội', 'Ha Noi']:
             dic['Hà Nội'] += 1
-        elif val in ['Việt Nam', 'Vietnam', 'Cầu Giấy','','Quận Bình Thạnh','Quận Tân Bình']:
+        elif val in ['Việt Nam', 'Vietnam', 'Cầu Giấy','','Quận Bình Thạnh','Quận Tân Bình','Đống Đa']:
             continue
         else:
             dic[val] = 1
@@ -123,21 +123,29 @@ def loca_salary_analyze(location_ar, salary_lst):
     for idx in temp_salary:
         if idx != ' ' and len(idx) == 3:
             result_salary += [int(idx)/100]
-        elif idx != ' ' and len(idx) > 6:
+        elif idx != ' ' and len(idx) == 4:
+            result_salary += [int(idx)/1000 * 23]
+        elif idx != ' ' and len(idx) == 5:
+            result_salary += [int(idx)/10000]
+        elif idx != ' ' and len(idx) >= 6:
             result_salary += [int(idx) / 1000000]
         else:
-            result_salary += [int(idx)]     
+            result_salary += [int(idx)]    
+    
+    exac = [round(val, 1) for val in result_salary]
+    for val in exac:
+        print(val)
 
     temp_location = []
     result_location = []
     for val in location_ar:
-        if re.findall(',', val):
+        if re.findall(',', str(val)):
             temp_location += [val[val.rfind(',') + 2:]]
         else:
             temp_location += [val]
 
     for val in temp_location:
-        if re.findall('[0-9.-]', val):
+        if re.findall('[0-9.-]', str(val)):
             continue
         else:
             result_location += [val]
@@ -145,18 +153,20 @@ def loca_salary_analyze(location_ar, salary_lst):
     dic = {}
     for val in range(len(result_location)):
         if result_location[val] in dic.keys():
+            print(dic[result_location[val]][0])
+            print(dic[result_location[val]][1])
             dic[result_location[val]][0] += 1
-            dic[result_location[val]][1] += result_salary[val]
-        elif result_location[val] in ['TPHCM', 'TP HCM', 'Ho Chi Minh City', 'Thành Phố Hồ Chí Minh', 'Thành phố Hồ Chí Minh', 'HCM', 'TP Hồ Chí Minh', 'Tp Hồ Chí Minh', 'HCMC']:
+            dic[result_location[val]][1] += exac[val]
+        elif result_location[val] in ['TPHCM', 'TP HCM', 'Ho Chi Minh City', 'Thành Phố Hồ Chí Minh', 'Thành phố Hồ Chí Minh', 'HCM', 'TP Hồ Chí Minh', 'Tp Hồ Chí Minh', 'HCMC','Ho Chi Minh']:
             dic['Hồ Chí Minh'][0] += 1
-            dic['Hồ Chí Minh'][1] += result_salary[val]
+            dic['Hồ Chí Minh'][1] += exac[val]
         elif result_location[val] in ['Tỉnh Bình Dương', 'Thuận An Bình Dương']:
             dic['Bình Dương'][0] += 1
-            dic['Bình Dương'][1] += result_salary[val]
-        elif result_location[val] in ['HN', 'Hà Nội  ']:
+            dic['Bình Dương'][1] += exac[val]
+        elif result_location[val] in ['HN', 'Hà Nội  ', 'Hanoi', 'TP Hà Nội', 'Ha Noi']:
             dic['Hà Nội'][0] += 1
-            dic['Hà Nội'][1] += result_salary[val]
-        elif result_location[val] in ['Việt Nam', 'Vietnam', 'Cầu Giấy','','Quận Bình Thạnh','Quận Tân Bình']:
+            dic['Hà Nội'][1] += exac[val]
+        elif result_location[val] in ['Việt Nam', 'Vietnam', 'Cầu Giấy','','Quận Bình Thạnh','Quận Tân Bình','Đống Đa']:
             continue
         else:
             dic[result_location[val]] = [1, 1]
@@ -181,7 +191,6 @@ def loca_salary_analyze(location_ar, salary_lst):
     plt.ylabel('Trung bình lương theo tháng')
     plt.show()
 
-
-salary_analyzer(salary)
+# salary_analyzer(salary)
 # location_analyze(location)
-# loca_salary_analyze(location, salary)
+loca_salary_analyze(location, salary)
