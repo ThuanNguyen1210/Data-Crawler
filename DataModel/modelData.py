@@ -14,23 +14,10 @@ for item in json_obj:
     EID = "EID" + "{:06d}".format(i)
 
     IEID = EID
-    if item.get("job_title") is not None:
-        check = item.get("job_title").find("hot")
-        if check != -1:
-            INAME = -1
-        else:
-            INAME = item.get("job_title")
+    INAME = item.get("job_title")
     ILOCATION = item.get("location")
 
     OEID = EID
-    # if item.get("company") is not None:
-    #     check = item.get("company").find("Công ty")
-    #     if check != -1:
-    #         ONAME = item.get("company")
-    #     else:
-    #         ONAME = -1
-    # else:
-    #     ONAME = -1
 
     if item.get("company") is None:
         ONAME = -1
@@ -40,19 +27,10 @@ for item in json_obj:
 
     ID = "ID" + "{:06d}".format(i)
     IEID = EID
-    # if item.get("company") is not None:
-    #     check = item.get("company").find("Công ty")
-    #     if check != -1:
-    #         NAME = item.get("company")
-    #     else:
-    #         NAME = -1
-    # else:
-    #     NAME = -1
     if item.get("company") is None:
         NAME = -1
     else:
         NAME = item.get("company")
-
     LOCATION = item.get("location")
     POSITION = item.get("position")
     DESCRIPTION = item.get("job_description")
