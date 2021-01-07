@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import re
 header_list = ["job_title", "company", "salary","location","position","job_description","job_requirement","benefit","quantity"]
-df = pd.read_excel('csvjson.xlsx', engine='openpyxl')
+df = pd.read_excel('data_unique.xlsx', engine='openpyxl')
 salary = list(df['salary'])
 location = list(df['location'])
 # print(location)
@@ -19,10 +19,13 @@ def salary_analyzer(salary_lst):
     for idx in temp:
         if idx != ' ' and len(idx) == 3:
             result += [int(idx)/100]
+        elif idx != ' ' and len(idx) == 4:
+            result += [int(idx)/1000 * 23]
         elif idx != ' ' and len(idx) > 6:
             result += [int(idx) / 1000000]
         else:
             result += [int(idx)]  
+    #print(result)
     lable = ['< 10', '10 - 20', '20 - 30', '30 - 40', '40 - 50', '50 - 60', '60 - 70', '70 - 80', '80 - 90', '90 - 100', '> 100']
     values = [0] * 11
     for val in result:
@@ -48,13 +51,15 @@ def salary_analyzer(salary_lst):
             values[9] += 1
         else:
             values[10] += 1
+    
+    print(values)
     plt.figure(figsize=(9, 6))
 
     plt.plot()
     plt.bar(lable, values)
-    plt.title('Bảng phân phối tiền lương')
+    plt.title('Bảng phân bố tin tuyển dụng theo mức lương')
     plt.xlabel('Triệu VND')
-    plt.ylabel('Số lượng công việc')
+    plt.ylabel('Số lượng tin tuyển dụng')
     plt.show()
 
 def location_analyze(location_ar):
