@@ -13,3 +13,11 @@ To run this crawler. Please do the following steps:
     scrapy crawl vietnamwork -O jobdata.json
 
 => See the result in jobdata.json file
+
+
+selenium: python file.py
+
+scrapy: scrapy crawl name(vietnamwork) -O datafile(json, csv,...)
+
+-O: ghi đè
+-o: ghi nối tiếp
