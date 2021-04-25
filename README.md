@@ -5,6 +5,6 @@
    + Suggest an application to use that data.
 
 - Use framework in python to crawl:
-   + BeautifulSoup
-   + Scrapy
-   + Selenium
+   + [BeautifulSoup](https://pypi.org/project/beautifulsoup4/)
+   + [Scrapy](https://docs.scrapy.org/en/latest/intro/overview.html)
+   + [Selenium](https://www.selenium.dev/documentation/en/)
